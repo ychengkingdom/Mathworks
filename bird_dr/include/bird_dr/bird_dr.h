@@ -4,7 +4,7 @@
 *Main function of the actuatorPWM                                    *
 ***********************************************************************/
 #include <sys/time.h>
-#include <snbird_dr_cfg.h>
+#include <bird_dr_cfg.h>
 
 /*Function declarations for lateral and longitude*/
 void initPWM();

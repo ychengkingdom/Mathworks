@@ -4,7 +4,7 @@
 *Main function of the actuator node                                    *
 ***********************************************************************/
 #include <ros/ros.h>
-#include <snbird_dr.h>
+#include <bird_dr.h>
 
 int main (int argc, char** argv)
 {

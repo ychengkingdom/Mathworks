@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(snbird)
+project(bird_dr)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -48,11 +48,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  Whls_vel.msg
-  #  Message2.msg
-)
+ add_message_files(
+   FILES
+#   Message1.msg
+#   Message2.msg
+    Bird_dr.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +70,10 @@ add_message_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
+ generate_messages(
    DEPENDENCIES
    std_msgs
-)
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,8 +106,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES hall_sensor
- CATKIN_DEPENDS message_generation roscpp rospy std_msgs
+#  LIBRARIES snbird_dr
+  CATKIN_DEPENDS message_generation roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -119,19 +120,21 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
-  /usr/include
-  include/snbird
+/usr/include
+#  /usr/local/include
+include/bird_dr
 )
 
 link_directories(
  include
  ${catkin_LIB_DIRS}
  /usr/lib
+#  /usr/local/lib
 )
 ## Declare a C++ library
-add_library(${PROJECT_NAME}
-  src/wheels.cpp
-)
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/bird_dr.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -141,7 +144,7 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/snbird_node.cpp src/wheels.cpp)
+ add_executable(${PROJECT_NAME}_node src/bird_dr_node.cpp src/bird_dr.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -151,12 +154,13 @@ add_executable(${PROJECT_NAME}_node src/snbird_node.cpp src/wheels.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ add_dependencies(${PROJECT_NAME}_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
-   wiringPi
+#   bcm2835
+    wiringPi
 )
 
 #############
@@ -206,7 +210,7 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_hall_sensor.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_bird_dr.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

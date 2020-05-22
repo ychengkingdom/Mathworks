@@ -6,7 +6,7 @@
 #ifndef WHEELS_H_
 #define WHEELS_H_
 
-#include "snbird_cfg.h"
+#include "bird_cfg.h"
 
 class Wheels
 {

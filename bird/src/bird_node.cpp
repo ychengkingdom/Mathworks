@@ -5,7 +5,7 @@
 ***********************************************************************/
 #include <ros/ros.h>
 #include "wheels.h"
-#include "snbird/Whls_vel.h"
+#include "bird/Whls_vel.h"
 #include "geometry_msgs/Twist.h"
 
 #define HALL_LOOP_RATE 500
@@ -33,7 +33,7 @@ int main (int argc, char** argv)
   ros::NodeHandle n;
   
 
-  ros::Publisher whls_vel_pub = n.advertise<snbird::Whls_vel>(
+  ros::Publisher whls_vel_pub = n.advertise<bird::Whls_vel>(
                                               "/whl_vel", 10);
   ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>(
                                               "/cmd_vel", 10);
@@ -49,7 +49,7 @@ int main (int argc, char** argv)
 
   while (ros::ok())
   {
-    snbird::Whls_vel whlVel_msg;
+    bird::Whls_vel whlVel_msg;
     geometry_msgs::Twist cmd_vel_msg;
 
     count++;
